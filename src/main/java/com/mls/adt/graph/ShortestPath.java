@@ -1,12 +1,7 @@
 package com.mls.adt.graph;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.mls.adt.graph.GraphDesc.Graph;
-
 public class ShortestPath {
-
+	
 	public static class Dijikstra {
 		public static int INFINITY = Integer.MAX_VALUE;
 
@@ -21,8 +16,7 @@ public class ShortestPath {
 		}
 
 		void dijikstra(Graph graph, int[] disArr, int src) {
-			Set<Integer> minSet = new HashSet<Integer>();
-			minSet.add(src);
+			graph.setMark(src);
 			initDistance(graph, src, disArr); // 初始化距离数组
 			for (int i = 0; i < graph.getVertexCount(); i++) {
 				int n = minVertex(graph, disArr);
@@ -67,7 +61,7 @@ public class ShortestPath {
 		}
 		System.out.println();
 		for (int n = 0; n < 5; n++) {
-			System.out.print((disArr[n] == Dijikstra.INFINITY ? -1 : disArr[n] )+ "\t");
+			System.out.print((disArr[n] == Dijikstra.INFINITY ? -1 : disArr[n]) + "\t");
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package com.mls.adt.graph;
 
-import com.mls.adt.graph.GraphDesc.Graph;
-
 public class AdjacencyMetrixGraph extends Graph {
 	public int[][] graph;
 	public int[] mark; // 标记节点是否已经遍历过
@@ -60,6 +58,7 @@ public class AdjacencyMetrixGraph extends Graph {
 		graph[v1][v2] = 1;
 	}
 
+	@Override
 	public void print() {
 		for (int i = 0; i < vCount; i++) {
 			for (int j = 0; j < vCount; j++) {

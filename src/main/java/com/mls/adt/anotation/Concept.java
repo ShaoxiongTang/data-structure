@@ -1,4 +1,4 @@
-package com.mls.adt;
+package com.mls.adt.anotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

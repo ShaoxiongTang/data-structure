@@ -4,9 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
-import com.mls.adt.graph.GraphDesc.Graph;
-
-public class Traversal {
+public class GraphTraversal {
 	// 当前节点动作：
 	// next不存在：不存在回溯至之前节点
 	// 存在：则使用next进行初始遍历
