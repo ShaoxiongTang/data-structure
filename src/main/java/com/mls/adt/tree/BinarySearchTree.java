@@ -45,7 +45,7 @@ public class BinarySearchTree<T> {
 		}
 	}
 
-	void print() { // 层次打印
+	void print() { // 层次打印 
 		Queue<BinaryNode<T>> q = new ArrayDeque<BinaryNode<T>>();
 		q.add(root);
 		int l = 0;
