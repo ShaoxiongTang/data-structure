@@ -4,18 +4,21 @@ import com.mls.adt.graph.GraphDesc.Graph;
 
 public class AdjacencyMetrixGraph extends Graph {
 	public int[][] graph;
-	public int[] mark;
+	public int[] mark; // 标记节点是否已经遍历过
 
 	private int edgeCount = 0;
-	private int size = 0;
 
 	public AdjacencyMetrixGraph(int val) {
-		this.size = val;
-		graph = new int[size][size];
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		vCount = val;
+		graph = new int[vCount][vCount];
+		for (int i = 0; i < vCount; i++) {
+			for (int j = 0; j < vCount; j++) {
 				graph[i][j] = 0;
 			}
+		}
+		mark = new int[vCount];
+		for (int i = 0; i < vCount; i++) {
+			mark[i] = 0;
 		}
 	}
 
@@ -30,21 +33,21 @@ public class AdjacencyMetrixGraph extends Graph {
 	}
 
 	@Override
-	int firstNeigbor(int i) {
-		for (int j = 0; j < size; j++) {
+	int first(int i) {
+		for (int j = 0; j < vCount; j++) {
 			if (graph[i][j] != 0)
 				return j;
 		}
-		return i;
+		return -1;
 	}
 
 	@Override
-	int nextNeigbor(int i, int j) {
-		for (int t = j + 1; t < size; t++) {
+	int next(int i, int j) {
+		for (int t = j + 1; t < vCount; t++) {
 			if (graph[i][t] != 0)
 				return t;
 		}
-		return i;
+		return -1;
 	}
 
 	@Override
@@ -58,9 +61,9 @@ public class AdjacencyMetrixGraph extends Graph {
 	}
 
 	public void print() {
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				System.out.print(graph[i][j] + (j == size - 1 ? "\n" : " "));
+		for (int i = 0; i < vCount; i++) {
+			for (int j = 0; j < vCount; j++) {
+				System.out.print(graph[i][j] + (j == vCount - 1 ? "\n" : " "));
 			}
 		}
 	}
@@ -73,5 +76,10 @@ public class AdjacencyMetrixGraph extends Graph {
 	@Override
 	int getMark(int i) {
 		return mark[i];
+	}
+
+	@Override
+	int getWeight(int i, int j) {
+		return graph[i][j];
 	}
 }

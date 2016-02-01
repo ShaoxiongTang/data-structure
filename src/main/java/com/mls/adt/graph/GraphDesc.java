@@ -13,6 +13,8 @@ public class GraphDesc {
 	// 有向图记录方式： 邻接矩阵，邻接表
 
 	public static abstract class Graph {
+		public int vCount;
+		
 		public static class Edge {
 			int src, dest, weight;
 
@@ -40,9 +42,9 @@ public class GraphDesc {
 
 		abstract int getEdgeCount();
 
-		abstract int firstNeigbor(int i); // 该节点的第一个邻接点
+		abstract int first(int i); // 该节点的第一个邻接点
 
-		abstract int nextNeigbor(int i, int j);// 该节点的下一个邻接点
+		abstract int next(int i, int j);// 该节点的下一个邻接点
 		
 		abstract void setEdge(int v1, int v2, int weight);
 
@@ -53,6 +55,8 @@ public class GraphDesc {
 		abstract void setMark(int i);
 		
 		abstract int getMark(int i);
+		
+		abstract int getWeight(int i, int j);
 	}
 
 	public static class AdjacencyMatrixGraph {
