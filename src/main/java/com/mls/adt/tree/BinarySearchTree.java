@@ -27,23 +27,11 @@ public class BinarySearchTree<T> {
 	// 情况1： 删除节点有没有子树-直接删除
 	// 情况2： 删除节点有一个左（右）子树，提升子树节点
 	// 情况3： 删除节点存在左右两个子树-使用右子树中最小值代替当前节点，删除右子树中最小节点
-	void delete(BinaryNode<T> node) {
-		
+	void delete(T k) {
+		_delete(root, k);
 	}
 	
 	
-	private BinaryNode<T> deleteMin(BinaryNode<T> node, BinaryNode<T> min) {
-		if (node == null) {
-			return null;
-		}
-		if (node.left() == null) {
-			min = node;
-			return node.right();
-		} else {
-			node.setLeft(deleteMin(node.left(), min));
-			return node;
-		}
-	}
 
 	void print() { // 层次打印 
 		Queue<BinaryNode<T>> q = new ArrayDeque<BinaryNode<T>>();
@@ -53,12 +41,12 @@ public class BinarySearchTree<T> {
 		while (q.size() > 0) {
 			BinaryNode<T> tmp = q.poll();
 			if (tmp == null) continue;
-			System.out.print(tmp.val() + " ");
-			if (++c == Math.pow(2.0, l)) {
-				System.out.println();
-				l++;
-				c = 0;
-			}
+			System.out.print(tmp.val()  == null ? "" : (tmp.val() + " "));
+//			if (++c == Math.pow(2.0, l)) {
+//				System.out.println();
+//				l++;
+//				c = 0;
+//			}
 			if (tmp.left() != null) q.add(tmp.left());
 			if (tmp.right() != null) q.add(tmp.right());
 		}
@@ -98,6 +86,34 @@ public class BinarySearchTree<T> {
 		}
 	}
 	
+	BinaryNode<T> _delete(BinaryNode<T> node, T k) {
+		if (comp(node.val(), k) == 0) {
+			BinaryNode<T> min = new PtrBinNode<T>(null);
+			deleteMin(node.right(), min);
+			node.setVal(min.val());
+			return node;
+		} else if (comp(node.val(), k) > 0) {
+			node.setLeft(_delete(node.left(), k));
+		} else {
+			node.setRight(_delete(node.right(), k));
+		}
+		return null;
+	}
+	
+	// 删除最小节点 返回
+	private BinaryNode<T> deleteMin(BinaryNode<T> node, BinaryNode<T> min) {
+		if (node == null) {
+			return null;
+		}
+		if (node.left() == null) {
+			min.setVal(node.val());
+			return node.right();
+		} else {
+			node.setLeft(deleteMin(node.left(), min)); // 左子树的左子节点为空 返回该节点的右子节点，作为当前节点的左子节点
+			return node;
+		}
+	}
+	
 	public static void main(String[] args) {
 //		BinaryNode<Integer> nodeA = new PtrBinNode<Integer>(37);
 //		BinaryNode<Integer> nodeB = new PtrBinNode<Integer>(24);
@@ -110,16 +126,18 @@ public class BinarySearchTree<T> {
 				return o1 > o2 ? 1 : (o1.intValue() < o2 ? -1 : 0);
 			}
 		});
+		bst.insert(40);
 		bst.insert(24);
 		bst.insert(42);
 		bst.insert(32);
-		PtrBinNode node = new PtrBinNode<Integer>(0);
-		System.out.println(bst.deleteMin(bst.root,node));
-		System.out.println(node.val());
-//		bst.insert(7);
-//		bst.insert(2);
-//		bst.insert(40);
-//		bst.insert(120);
+		bst.insert(34);
+		bst.insert(7);
+		bst.insert(2);
+		bst.insert(120);
+		bst.delete(37);
+//		BinaryNode<Integer> min = new PtrBinNode<Integer>(null);
+//		BinaryNode<Integer> ret = bst.deleteMin(bst.root , min);
+		// System.out.println(bst);
 		// System.out.println(bst.isExsits(20));
 		bst.print();
 	}
