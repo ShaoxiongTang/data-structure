@@ -31,8 +31,6 @@ public class BinarySearchTree<T> {
 		_delete(root, k);
 	}
 	
-	
-
 	void print() { // 层次打印 
 		Queue<BinaryNode<T>> q = new ArrayDeque<BinaryNode<T>>();
 		q.add(root);
